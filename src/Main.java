@@ -2,44 +2,29 @@ import java.security.spec.RSAOtherPrimeInfo;
 
 public class Main {
     public static void main(String[] args) {
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(2, 2);
+        Vec2 p1 = new Vec2(0, 0);
+        Vec2 p2 = new Vec2(2, 2);
         Segment seg = new Segment(p1, p2);
+        SolidFilledPolygon polygon = new SolidFilledPolygon(new Vec2[]{new Vec2(100,20),new Vec2(40,50),new Vec2(100,120)},"red");
 
-        System.out.println(seg.length());
-        System.out.println(seg.toSvg());
-        Segment segment = new Segment(new Point(0,0),new Point(100,100));
-        System.out.println(segment.toSvg());
-        Segment[] segments = Segment.perpendicularSegments(segment,new Point(100/2,100/2));
-        System.out.println(segment.length());
-        System.out.println(segments[0].toSvg());
-        System.out.println(segments[1].toSvg());
-        System.out.println(segments[0].length());
-        System.out.println(segments[1].length());
+        Vec2[] pointsArray = {new Vec2(50, 50), new Vec2(50, 20),
+                                new Vec2(100, 20),new Vec2(100, 50)};
 
-        Point[] pointsArray = {new Point(50, 50), new Point(50, 20),
-                                new Point(100, 20),new Point(100, 50)};
 
-        Polygon polygon = new Polygon(pointsArray);
-        System.out.println(polygon.toSvg());
-
-        Polygon polygon2 = new Polygon(polygon);
-        System.out.println(polygon2.toSvg());
-
-        Style style = new Style("red", "yellow", 3.0);
-        Polygon polygon3 = new Polygon(pointsArray, style);
-        System.out.println(polygon3.toSvg());
-
-        Shape poly3 = new Polygon(new Point[]{new Point(90, 45),
-                new Point(56, 60), new Point(100, 10)});
+        Shape poly3 = new Polygon(new Vec2[]{new Vec2(90, 45),
+                new Vec2(56, 60), new Vec2(100, 10)});
         SvgScene scene = new SvgScene();
-        //scene.add(poly3);
-        scene.save("file.html");
-        System.out.println(poly3.toSvg());
+        SolidFilledPolygon poly1 = new SolidFilledPolygon(
+                new Vec2[]{new Vec2(190, 145),
+                        new Vec2(156, 160),
+                        new Vec2(254, 200)}, "red");
+        scene.add(poly3);
+        //scene.add(Polygon.square(new Segment(new Vec2(400, 300), new Vec2(200, 500))));
 
-        Ellipse ellipse = new Ellipse(new Point(100, 100), 50, 50, new Style("red", "green", 2));
-        SvgScene scene1 = new SvgScene();
-        scene1.add(ellipse);
-        scene1.save("svg.html");
+        ShapeDecorator solidFillShapeDecorator = new SolidFillShapeDecorator(poly3, "red");
+        TransformationDecorator.Builder builder = new TransformationDecorator.Builder(new SolidFillShapeDecorator(poly3, "red"));
+        TransformationDecorator s = builder.rotate(-10, new Vec2(0, 0)).scale(new Vec2(1, 1.5)).build();
+        scene.add(s);
+        scene.save("file.html");
     }
 }

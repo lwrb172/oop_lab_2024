@@ -1,18 +1,18 @@
 public class Segment {
 
-    private Point startPoint;
-    private Point endPoint;
+    private Vec2 startPoint;
+    private Vec2 endPoint;
 
-    public Segment(Point startPoint, Point endPoint) {
+    public Segment(Vec2 startPoint, Vec2 endPoint) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
 
-    public Point getStartPoint() {
+    public Vec2 getStartPoint() {
         return startPoint;
     }
 
-    public Point getEndPoint() {
+    public Vec2 getEndPoint() {
         return endPoint;
     }
 
@@ -28,7 +28,7 @@ public class Segment {
                 " style=\"stroke:black;stroke-width:1\" />";
     }
 
-    public static Segment[] perpendicularSegments(Segment segment, Point point) {
+    public static Segment[] perpendicularSegments(Segment segment, Vec2 point) {
         double dx = segment.endPoint.x - segment.startPoint.x;
         double dy = segment.endPoint.y - segment.startPoint.y;
 
@@ -42,8 +42,8 @@ public class Segment {
         double endx2 = point.x + new_dx2;
         double endy2 = point.x + new_dy2;
 
-        Point first_end = new Point(endx1, endy1);
-        Point second_end = new Point(endx2, endy2);
+        Vec2 first_end = new Vec2(endx1, endy1);
+        Vec2 second_end = new Vec2(endx2, endy2);
 
         Segment first = new Segment(point, first_end);
         Segment second = new Segment(point, second_end);

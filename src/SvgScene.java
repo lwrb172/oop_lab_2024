@@ -18,7 +18,7 @@ public class SvgScene {
                 " xmlns=\"http://www.w3.org/2000/svg\">\n");
 
         for(Shape sh : shapes) {
-            text.append(sh.toSvg());
+            text.append(sh.toSvg(""));
         }
 
         text.append("</svg>\n</body>\n</html>");
